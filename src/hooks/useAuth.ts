@@ -23,7 +23,13 @@ export const useAuth = () => {
 			.then(res => {
 				setUser(res.user);
 				router.push('/');
+				fetch('/api/customer', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email: res.user.email, user_id: res.user.uid }),
+				});
 				Cookies.set('user_id', res.user.uid);
+				Cookies.set('email', res.user.email as string);
 				setIsLoading(true);
 			})
 			.catch(error => setError(error.message))
@@ -38,6 +44,7 @@ export const useAuth = () => {
 				setUser(res.user);
 				router.push('/');
 				Cookies.set('user_id', res.user.uid);
+				Cookies.set('email', res.user.email as string);
 				setIsLoading(true);
 			})
 			.catch(error => setError(error.message))
@@ -50,6 +57,7 @@ export const useAuth = () => {
 		await signOut(auth)
 			.then(() => {
 				Cookies.remove('user_id');
+				Cookies.remove('email');
 				setUser(null);
 				router.push('/auth');
 			})
@@ -57,14 +65,5 @@ export const useAuth = () => {
 			.finally(() => setIsLoading(false));
 	};
 
-	return {
-		isLoading,
-		user,
-		error,
-		signUp,
-		signIn,
-		logout,
-		setUser,
-		setIsLoading,
-	};
+	return { isLoading, user, error, signUp, signIn, logout, setUser, setIsLoading };
 };

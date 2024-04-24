@@ -1,6 +1,5 @@
-'use client'
+'use client';
 
-import React from 'react';
 import { ErrorMessage, FieldHookConfig, useField } from 'formik';
 import { TextFieldProps } from './text-field.props';
 

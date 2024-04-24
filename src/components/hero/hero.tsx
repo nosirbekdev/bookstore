@@ -10,10 +10,8 @@ import { IHero } from './hero.props';
 const Hero = ({ data }: IHero) => {
 	const router = useRouter();
 
-	console.log(data);
-
 	return (
-		<Box width={'100%'} height={'70vh'} sx={{ backgroundColor: 'crimson' }}>
+		<Box width={'100%'} height={'80vh'} sx={{ backgroundColor: 'crimson' }}>
 			<Carousel
 				responsive={{
 					mobile: {
@@ -22,13 +20,13 @@ const Hero = ({ data }: IHero) => {
 					},
 				}}
 			>
-				{data.slice(0, 5).map(book => (
+				{data.map(book => (
 					<Box
 						key={book.bookRank}
 						sx={{ cursor: 'pointer' }}
-						onClick={() => router.push(`/blog/${book}`)}
+						onClick={() => router.push(`/book/${book.bookIsbn}`)}
 					>
-						<Box sx={{ position: 'relative', width: '100%', height: '70vh' }}>
+						<Box sx={{ position: 'relative', width: '100%', height: '90vh' }}>
 							<Image
 								src={book.bookImage}
 								alt={book.bookTitle}

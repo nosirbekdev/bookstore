@@ -3,20 +3,22 @@
 import { TextField } from '@/components';
 import { useAuth } from '@/hooks/useAuth';
 import { Form, Formik } from 'formik';
+import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 const Auth = () => {
 	const [auth, setAuth] = useState<'signup' | 'signin'>('signin');
-	const { error, isLoading, signUp, signIn, logout, user, setIsLoading } = useAuth();
+	const { error, isLoading, signUp, signIn } = useAuth();
 	const router = useRouter();
 
-	if (user) {
-		router.push('/');
-	}
+	const user_id = Cookies.get('user_id');
+
+	if (user_id) return router.push('/');
 
 	const toggleAuth = (state: 'signup' | 'signin') => {
 		setAuth(state);
@@ -25,8 +27,10 @@ const Auth = () => {
 	const onSubmit = async (formData: { email: string; password: string }) => {
 		if (auth === 'signup') {
 			signUp(formData.email, formData.password);
+			toast('Sign up success');
 		} else {
 			signIn(formData.email, formData.password);
+			toast('Sign in success');
 		}
 	};
 
@@ -48,7 +52,7 @@ const Auth = () => {
 				src={'https://shorturl.at/jAGW7'}
 				alt='bg'
 				fill
-				className='object-cover -z-10 !hidden sm:!inline opacity-40'
+				className='object-cover -z-10 !hidden sm:!inline opacity-30'
 			/>
 
 			<Image
@@ -58,6 +62,7 @@ const Auth = () => {
 				height={70}
 				priority
 				className='absolute left-4 top-4 cursor-pointer object-contain'
+				onClick={() => router.push('/')}
 			/>
 
 			<Formik

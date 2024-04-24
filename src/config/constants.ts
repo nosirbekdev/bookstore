@@ -8,6 +8,10 @@ export const navItems = [
 		label: 'Category',
 	},
 	{
+		route: '/cart',
+		label: 'Cart',
+	},
+	{
 		route: '/auth',
 		label: 'Sign',
 	},

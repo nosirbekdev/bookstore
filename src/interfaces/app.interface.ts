@@ -7,4 +7,6 @@ export interface IBooks {
 	amazonBookUrl: string;
 	bookIsbn: string;
 	bookRank: number;
+	quantity: number;
+	price: number;
 }
