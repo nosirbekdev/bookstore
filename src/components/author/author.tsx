@@ -11,12 +11,15 @@ import { useRouter } from 'next/navigation';
 const AccountAuthor = (): JSX.Element => {
 	const user_id = Cookies.get('user_id');
 	const router = useRouter();
+	let products: IBooks[] = [];
 
 	if (!user_id) {
 		router.push('/auth');
 	}
 
-	const products: IBooks[] = JSON.parse(localStorage.getItem('cart') || '[]');
+	if (typeof window !== 'undefined') {
+		products = JSON.parse(localStorage.getItem('cart') || '[]');
+	}
 
 	return (
 		<>

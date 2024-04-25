@@ -10,22 +10,22 @@ import { useEffect, useState } from 'react';
 
 const Cart = (): JSX.Element => {
 	const [total, setTotal] = useState<number>(0);
-	const [products, setProducts] = useState<IBooks[]>(
-		JSON.parse(localStorage.getItem('cart') || '[]')
-	);
+	const [products, setProducts] = useState<IBooks[]>([]);
 
 	const router = useRouter();
 
-	useEffect(
-		() => {
-			const user_id = Cookies.get('user_id');
-			if (!user_id) {
-				router.push('/auth');
-			}
-		},
-		// eslint-disable-next-line
-		[]
-	);
+	useEffect(() => {
+		const user_id = Cookies.get('user_id');
+		if (!user_id) {
+			router.push('/auth');
+		}
+
+		// Fetch and set products from localStorage only in the client-side environment
+		if (typeof window !== 'undefined') {
+			const storedProducts = JSON.parse(localStorage.getItem('cart') || '[]');
+			setProducts(storedProducts);
+		}
+	}, [router]);
 
 	const removeItem = (id: number) => {
 		const updatedCart = products.filter(product => product.bookRank !== id);
