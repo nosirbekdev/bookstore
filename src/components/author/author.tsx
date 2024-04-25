@@ -7,18 +7,22 @@ import Cookies from 'js-cookie';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const AccountAuthor = (): JSX.Element => {
 	const user_id = Cookies.get('user_id');
+	const [products, setProducts] = useState<IBooks[]>([]);
 	const router = useRouter();
-	let products: IBooks[] = [];
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const storedProducts = JSON.parse(localStorage.getItem('cart') || '[]');
+			setProducts(storedProducts); // Update products state
+		}
+	}, []);
 
 	if (!user_id) {
 		router.push('/auth');
-	}
-
-	if (typeof window !== 'undefined') {
-		products = JSON.parse(localStorage.getItem('cart') || '[]');
 	}
 
 	return (
@@ -47,12 +51,9 @@ const AccountAuthor = (): JSX.Element => {
 					<div>
 						<div className='flex flex-col items-center justify-center h-screen'>
 							<h1 className='text-2xl font-bold'>No items in cart</h1>
-							<button
-								className='px-4 py-2 mt-4 text-white bg-black rounded-md'
-								onClick={() => router.push('/')}
-							>
+							<Link href={'/'} className='px-4 py-2 mt-4 text-white bg-black rounded-md'>
 								Back to home
-							</button>
+							</Link>
 						</div>
 					</div>
 				)}
