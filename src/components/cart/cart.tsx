@@ -14,11 +14,18 @@ const Cart = (): JSX.Element => {
 		JSON.parse(localStorage.getItem('cart') || '[]')
 	);
 
-	const user_id = Cookies.get('user_id');
 	const router = useRouter();
-	if (!user_id) {
-		router.push('/auth');
-	}
+
+	useEffect(
+		() => {
+			const user_id = Cookies.get('user_id');
+			if (!user_id) {
+				router.push('/auth');
+			}
+		},
+		// eslint-disable-next-line
+		[]
+	);
 
 	const removeItem = (id: number) => {
 		const updatedCart = products.filter(product => product.bookRank !== id);
