@@ -3,6 +3,11 @@ import Hero from '@/components/hero/hero';
 import { IBooks } from '@/interfaces/app.interface';
 import Layout from '@/layout/layout';
 import axios from 'axios';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Books category',
+};
 
 const Category = async () => {
 	const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/getBooks`, {
