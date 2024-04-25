@@ -21,9 +21,11 @@ const AccountAuthor = (): JSX.Element => {
 		}
 	}, []);
 
-	if (!user_id) {
-		router.push('/auth');
-	}
+	useEffect(() => {
+		if (!user_id) {
+			router.push('/auth');
+		}
+	}, [user_id, router]);
 
 	return (
 		<>
