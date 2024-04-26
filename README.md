@@ -1,4 +1,13 @@
-## Boshlash
+# Book store
+
+## Demo
+https://bookstore.librarynetbuilder.uz/
+
+Yuklab oling:
+
+```bash
+git clone https://github.com/nosirbek030381/bookstore.git
+```
 
 Birinchi ishlatish shaxsiy noutbukingizda:
 
