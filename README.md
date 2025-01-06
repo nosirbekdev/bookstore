@@ -15,10 +15,6 @@ Birinchi ishlatish shaxsiy noutbukingizda:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Ochish [http://localhost:3000](http://localhost:3000) bilan va sizning brovzeringizda.
